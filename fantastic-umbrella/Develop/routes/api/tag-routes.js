@@ -34,11 +34,10 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   // create a new tag
   try {
-    const { name, description } = req.body;
-
+    const { tag_name } = req.body;
+    console.log(req.body);
     const newTag = await Tag.create({
-      name,
-      description,
+      tag_name,
     });
     res.status(201).json(newTag);
   } catch (error) {
@@ -48,20 +47,14 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   // update a tag's name by its `id` value
-  try{
-    const tag_id = req.params.id;
-    const { name } = req.body;
-
-    const tag = await Tag.findByPk(tag_id);
-
-    if (tag) {
-      tag.name = name;
-      await tag.save();
-
-      res.json(tag);
-    } else {
-      res.status(404).json({ error: 'Error in locating tag.' });
-    } 
+  try {
+    
+    const tag = await Tag.update(req.body, {
+      where: {
+        id: req.params.id
+      }
+    });
+    res.json(tag);
   } catch (error) {
     res.status(500).json({ error: 'Error in updating tag.' });
   }

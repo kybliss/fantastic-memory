@@ -17,8 +17,8 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   // find a single tag by its `id`
   try {
-    const tagId = req.params.id;
-    const tag= await Tag.findByPk(tagId);
+    const tag_id = req.params.id;
+    const tag = await Tag.findByPk(tag_id);
 
     if (tag) {
       res.json(tag);
@@ -49,10 +49,10 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   // update a tag's name by its `id` value
   try{
-    const tagId = req.params.id;
+    const tag_id = req.params.id;
     const { name } = req.body;
 
-    const tag = await Tag.findByPk(tagId);
+    const tag = await Tag.findByPk(tag_id);
 
     if (tag) {
       tag.name = name;
@@ -70,8 +70,8 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   // delete on tag by its `id` value
   try {
-    const tagId = req.params.id;
-    const tag= await Tag.findByPk(tagId);
+    const tag_id = req.params.id;
+    const tag = await Tag.findByPk(tag_id);
 
     if (tag) {
       await tag.destroy();
